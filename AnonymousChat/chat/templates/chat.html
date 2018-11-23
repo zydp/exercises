@@ -2,50 +2,73 @@
  <head> 
   <title>Anonymous Chat</title> 
   <style>
-
       input { display: block; }
-      ul    { list-style: none; }
-
-    </style> 
+      ul { list-style: none; }
+    </style>
+    <script>
+      console.log("What do you think of the chat application?\nIt's great - very responsive.\nThat's because of the use of channels and Go routines :)\nYep\n");
+    </script>
  </head> 
- <body> 
-<div style="margin-left:32px; width: 480px;">
-	<h5 style="margin: 0 auto;text-align: center">Anonymous Chat</h5>
-	<hr />
-	<div style="">
-    <ul id="messages" style="padding-left:0px;">
-	  </ul> 
-	</div>
-	<hr />
-  <form id="chatbox" style="width:100%"> 
-   <textarea style="width:100%"></textarea> 
-   <br /><br />
-   <input type="submit" value="Send" /> 
-  </form>
-  
-</div>
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script> 
+ <body>
+  <span id="timeNow"></span> 
+  <div style="margin-left:48px; width: 480px;"> 
+   <h5 style="margin: 0 auto;text-align: center">Anonymous Chat</h5> 
+   <hr /> 
+   <div style=""> 
+    <ul id="messages" style="padding-left:0px;"> 
+    </ul> 
+   </div> 
+   <hr /> 
+   <form id="chatbox" style="width:100%"> 
+    <textarea style="width:100%"></textarea> 
+    <br />
+    <br /> 
+    <input type="submit" value="Send(Ctrl+Enter)"/>    
+   </form> 
+    <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+  </div>
   <script>
+      setInterval("timeNow.innerHTML=new Date().toLocaleString()",1000);
+      var socket = null;
+      var msgBox = $("#chatbox textarea");
+      var messages = $("#messages");
+
+      $("body").keydown(function(){
+          if("13"==event.keyCode && event.ctrlKey){
+            SendUserMessage();
+          }
+      });
+      
+      function SendUserMessage(){
+        if (!msgBox.val()) {
+          alert("Empty messages");
+          return false;
+        } 
+        if (!socket) {
+          alert("Error: There is no socket connection.");
+          return false;
+        }
+        socket.send(msgBox.val());
+        msgBox.val("");
+        return false;
+      }
 
       $(function(){
 
-        var socket = null;
-        var msgBox = $("#chatbox textarea");
-        var messages = $("#messages");
-
         $("#chatbox").submit(function(){
-
-          if (!msgBox.val()) return false;
-          if (!socket) {
-            alert("Error: There is no socket connection.");
+            if (!msgBox.val()) {
+              alert("Empty messages");
+              return false;
+            }
+            if (!socket) {
+              alert("Error: There is no socket connection.");
+              return false;
+            }
+            socket.send(msgBox.val());
+            msgBox.val("");
             return false;
-          }
-
-          socket.send(msgBox.val());
-          msgBox.val("");
-          return false;
-
         });
+
 
         if (!window["WebSocket"]) {
           alert("Error: Your browser does not support web sockets.")
@@ -58,9 +81,7 @@
             messages.append($("<li>").text(e.data));
           }
         }
-
       });
-
     </script>  
  </body>
 </html>
