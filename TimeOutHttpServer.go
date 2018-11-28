@@ -28,10 +28,10 @@ func main() {
 	PORT := ":3244"
 	arguments := os.Args
 	if len(arguments) == 1 {
-		fmt.Printf("Listening on http://0.0.0.0%s\n", PORT)
+		fmt.Printf("Listening on https://0.0.0.0%s\n", PORT)
 	} else {
 		PORT = ":" + arguments[1]
-		fmt.Printf("Listening on http://0.0.0.0%s\n", PORT)
+		fmt.Printf("Listening on https://0.0.0.0%s\n", PORT)
 	}
 
 	m := http.NewServeMux()
@@ -44,7 +44,11 @@ func main() {
 	m.HandleFunc("/time", timeHandler)
 	m.HandleFunc("/", myHandler)
 
-	err := srv.ListenAndServe()
+	//err := srv.ListenAndServe()
+
+	//in tls
+	err := srv.ListenAndServeTLS("server.crt", "server.key")
+	
 	if err != nil {
 		fmt.Println(err)
 		return
