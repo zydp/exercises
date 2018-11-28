@@ -1,2 +1,4 @@
 
 *.exe
+server.crt
+server.key

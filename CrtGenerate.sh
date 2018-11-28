@@ -10,7 +10,8 @@ openssl genrsa -des3 -out $DOMAIN.key 2048
 
 echo "Create server certificate signing request..."
 
-SUBJECT="/C=US/ST=Mars/L=iTranswarp/O=iTranswarp/OU=iTranswarp/CN=$DOMAIN"
+#SUBJECT="/C=US/ST=$DOMAIN/L=$DOMAIN/O=$DOMAIN/OU=$DOMAIN/CN=$DOMAIN"
+SUBJECT="/CN=$DOMAIN"
 
 openssl req -new -subj $SUBJECT -key $DOMAIN.key -out $DOMAIN.csr
 
