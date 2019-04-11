@@ -35,27 +35,29 @@ func main() {
 	//err = collection.Find(bson.M{"x": 1}).All(&recs)
 
 	for i:=0; i<10; i++ {
-		s2 := session.Clone()
-		defer s2.Close()
-		collection := s2.DB("go").C("daiping")
+		go func(){
+			s2 := session.Clone()
+			defer s2.Close()
+			collection := s2.DB("go").C("daiping")
 
-		var recs []Record
-		err = collection.Find(bson.M{
-			"$or": []bson.M{
-				bson.M{"x": 4},
-				bson.M{"x": 3},
-			},
-		}).All(&recs)
+			var recs []Record
+			err = collection.Find(bson.M{
+				"$or": []bson.M{
+					bson.M{"x": 4},
+					bson.M{"x": 3},
+				},
+			}).All(&recs)
 
-		if err != nil {
-			fmt.Println(err)
-			os.Exit(100)
-		}
+			if err != nil {
+				fmt.Println(err)
+				os.Exit(100)
+			}
 
-		for x, y := range recs {
-			fmt.Println(x, y)
+			for x, y := range recs {
+				fmt.Println(x, y)
 
-		}
+			}
+		}()
 	}
 	<-time.After(5 * time.Second)	//wait five seconds
 }
