@@ -23,6 +23,9 @@ func main() {
 	charByChar(TEST_FILE_NAME)
 	ReadingFromRandom() /*for linux*/
 	WriteingToFile()
+	Copy(TEST_FILE_NAME, "dest.txt")
+	CopyUsingIoutil(TEST_FILE_NAME, "dest.txt")
+	AppendToFile(TEST_FILE_NAME)
 }
 
 /*逐行读取*/
@@ -192,6 +195,55 @@ func WriteingToFile() {
 	}
 	fmt.Printf("wrote %d bytes\n", n)
 }
+
+func Copy(src, dst string) (int64, error) {
+	sourceFileStat, err := os.Stat(src)
+	if err != nil {
+		return 0, err
+	}
+	if !sourceFileStat.Mode().IsRegular() {
+		return 0, fmt.Errorf("%s is not a regular file", src)
+	}
+	source, err := os.Open(src)
+	if err != nil {
+		return 0, err
+	}
+	defer source.Close()
+	destination, err := os.Create(dst)
+	if err != nil {
+		return 0, err
+	}
+	defer destination.Close()
+	nBytes, err := io.Copy(destination, source)
+	return nBytes, err
+}
+
+func CopyUsingIoutil(src, dst string) error {
+	input, err := ioutil.ReadFile(src)
+	if err != nil {
+		fmt.Println(err)
+		os.Exit(1)
+	}
+	err = ioutil.WriteFile(dst, input, 0644)
+	if err != nil {
+		fmt.Println("Error creating the new file", dst)
+		fmt.Println(err)
+		os.Exit(1)
+	}
+	return err
+}
+
+func AppendToFile(filename string) (err error){
+	f, err := os.OpenFile(filename,	os.O_RDWR|os.O_APPEND|os.O_CREATE, 0660)
+	if err != nil {
+		fmt.Println(err)
+		os.Exit(-1)
+	}
+	defer f.Close()
+	fmt.Fprintf(f, "%s\n", "ABCDEFG")
+	return err
+}
+
 
 func ReadingFromRandom() {
 	f, err := os.Open("/dev/random")
