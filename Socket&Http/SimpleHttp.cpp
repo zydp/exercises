@@ -1,7 +1,7 @@
 #include "SimpleHttp.h"
 #include <string.h>
 #include <thread>
-namespace Inesa {
+namespace Exercises {
 	namespace SimpleHttp {
 		constexpr auto RECV_BUF_INIT_SIZE = 512;
 		/* Init global environment */
