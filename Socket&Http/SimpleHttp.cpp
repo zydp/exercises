@@ -390,4 +390,4 @@ namespace Exercises {
 			thr.detach();
 		}
 	}/* end of namespace  SimpleHttp */
-}/* end of namespace Inesa */
+}/* end of namespace Exercises */
