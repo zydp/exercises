@@ -105,4 +105,4 @@ namespace Exercises {
 			void _impl_do(std::shared_ptr<Request> req, RESP_CB cb, const std::string& body = "" );
 		};
 	}/* end of namespace  SimpleHttp */
-}/* end of namespace Inesa */
+}/* end of namespace Exercises */
