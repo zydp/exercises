@@ -11,7 +11,7 @@
 #include <ixwebsocket/IXWebSocket.h>
 #include <ixwebsocket/IXWebSocketHttpHeaders.h>
 
-namespace Inesa {
+namespace Exercises {
 	namespace SimpleWebSocket {
 		
 		/*
