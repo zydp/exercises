@@ -59,5 +59,5 @@ namespace Exercises {
 			std::atomic<bool> isConnected_{false};
 		};
 	}/* end of namespace SimpleWebSocket */
-}/* end of namespace Inesa */
+}/* end of namespace Exercises  */
 
