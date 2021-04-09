@@ -72,9 +72,9 @@ namespace Inesa {
 			
 			/* using Cert */
 			if (!CertPath.empty()) {
-				//curl_easy_setopt(pHandle_, CURLOPT_SSL_VERIFYPEER, 1L); //in check
-				curl_easy_setopt(pHandle_, CURLOPT_SSL_VERIFYHOST, 0L);
-				curl_easy_setopt(pHandle_, CURLOPT_SSL_VERIFYPEER, 0L);
+				curl_easy_setopt(pHandle_, CURLOPT_SSL_VERIFYPEER, 1L); //in check
+				//curl_easy_setopt(pHandle_, CURLOPT_SSL_VERIFYHOST, 0L);
+				//curl_easy_setopt(pHandle_, CURLOPT_SSL_VERIFYPEER, 0L);
 				//curl_easy_setopt(pHandle_, CURLOPT_CAPATH, CertPath.data());
 				curl_easy_setopt(pHandle_, CURLOPT_CAINFO, CertPath.data()); /* "/etc/certs/cabundle.pem" */
 			}
