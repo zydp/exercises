@@ -8,7 +8,7 @@
 #include <curl/curl.h>
 using namespace std;
 
-namespace Inesa {
+namespace Exercises {
 	namespace SimpleHttp {
 		/*----sweet------*/
 		using HEADER_PTR = struct curl_slist*;
