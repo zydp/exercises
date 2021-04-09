@@ -1,7 +1,7 @@
 #include "SimpleWebSocket.h"
 #include <time.h>
 
-namespace Inesa {
+namespace Exercises {
    namespace SimpleWebSocket {
 		/* Candy */
 		Client::Client(std::string ip, unsigned short port){
