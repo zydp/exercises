@@ -142,3 +142,19 @@ func onWSClientNewMessage(c *WSClient, message string) {
 func onWSClientClose(c *WSClient, err error) {
 	fmt.Println(c.ws.RemoteAddr().String(), "closed")
 }
+
+func main() {
+	arguments := os.Args
+	if len(arguments) == 1 {
+		fmt.Println("Please provide a port number!")
+		return
+	}
+
+	SERVER_ADDRESS := "0.0.0.0:" + arguments[1]
+
+	Server := NewWSServer(SERVER_ADDRESS)
+	Server.SetNewClientCB(onNewWSClient)
+	Server.SetNewMessageCB(onWSClientNewMessage)
+	Server.SetClientConnectionClosedCB(onWSClientClose)
+	Server.Listen()
+}
