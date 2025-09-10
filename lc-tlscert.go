@@ -1,5 +1,5 @@
 /*
-* Copyright 2025 代平.
+* Copyright 2025 DAIPING.
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
@@ -77,10 +77,10 @@ func main() {
 	// Define a basic certificate template with key usage and CA properties.
 	template := x509.Certificate{
 		Subject: pkix.Name{
-			Organization: []string{"iTranswarp"},
-			Country:      []string{"US"},
-			Province:     []string{"Mars"},
-			Locality:     []string{"iTranswarp"},
+			Organization: []string{"DP-SELF"},
+			Country:      []string{"CN"},
+			Province:     []string{"Shanghai"},
+			Locality:     []string{"Shanghai"},
 		},
 		NotBefore: time.Now(),
 
